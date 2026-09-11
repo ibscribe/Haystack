@@ -3,6 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="0">
 	<title>Haystack Talent</title>
 	<style>
 		* {
@@ -13,22 +16,153 @@
 
 		body {
 			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-			height: 100vh;
-			display: flex;
-			align-items: center;
-			justify-content: center;
 			background: #fff;
 			color: #000;
 		}
 
+		nav {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 20px 40px;
+			border-bottom: 3px solid #D4A574;
+		}
+
+		.nav-links {
+			display: flex;
+			gap: 40px;
+			align-items: center;
+		}
+
+		.nav-links a {
+			font-family: 'Consolas', 'Monaco', monospace;
+			font-size: 14px;
+			font-weight: 600;
+			text-decoration: none;
+			color: #8B4513;
+			transition: color 0.2s;
+		}
+
+		.nav-links a:hover {
+			color: #D4A574;
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 0;
+			font-family: 'Consolas', 'Monaco', monospace;
+			font-weight: 900;
+			font-size: 24px;
+			letter-spacing: 2px;
+		}
+
+		.logo-letter {
+			color: #8B4513;
+		}
+
+		.logo-slash {
+			color: #D4A574;
+			margin: 0 4px;
+		}
+
+		main {
+			height: calc(100vh - 81px);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 20px;
+		}
+
 		h1 {
+			font-family: 'Consolas', 'Monaco', monospace;
 			font-size: 4rem;
-			font-weight: 300;
-			letter-spacing: -1px;
+			font-weight: 900;
+			letter-spacing: 2px;
+			color: #8B4513;
+		}
+
+		.tagline-container {
+			font-family: 'Consolas', 'Monaco', monospace;
+			font-size: 1.2rem;
+			font-weight: 400;
+			letter-spacing: 0.5px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			color: #D4A574;
+		}
+
+		.cursor {
+			display: inline-block;
+			width: 2px;
+			height: 32px;
+			background-color: #D4A574;
+			animation: blink 0.7s infinite;
+		}
+
+		@keyframes blink {
+			0%, 49% {
+				opacity: 1;
+			}
+			50%, 100% {
+				opacity: 0;
+			}
 		}
 	</style>
 </head>
 <body>
-	<h1>Haystack Talent</h1>
+	<nav>
+		<div class="logo">
+			<span class="logo-letter">H</span><span class="logo-slash">/</span><span class="logo-letter">T</span>
+		</div>
+		<div class="nav-links">
+			<a href="#what">What</a>
+			<a href="#why">Why</a>
+			<a href="#how">How</a>
+			<a href="#who">Who</a>
+		</div>
+	</nav>
+
+	<main>
+		<h1>Haystack Talent</h1>
+		<div class="tagline-container">
+			<span id="tagline"></span><span class="cursor"></span>
+		</div>
+	</main>
+
+	<script>
+		const slogans = [
+			'an intelligence platform for executive search',
+			'helping search firms encode their expertise',
+			'enabling recruiters to scale their intuition',
+			'allowing talent partners to predict excellence'
+		];
+
+		let currentIndex = 0;
+		const taglineElement = document.getElementById('tagline');
+
+		function typeSlogan() {
+			const slogan = slogans[currentIndex];
+			let charIndex = 0;
+			taglineElement.textContent = '';
+
+			const typeInterval = setInterval(() => {
+				if (charIndex < slogan.length) {
+					taglineElement.textContent += slogan[charIndex];
+					charIndex++;
+				} else {
+					clearInterval(typeInterval);
+					setTimeout(() => {
+						currentIndex = (currentIndex + 1) % slogans.length;
+						typeSlogan();
+					}, 2500);
+				}
+			}, 50);
+		}
+
+		typeSlogan();
+	</script>
 </body>
 </html>
