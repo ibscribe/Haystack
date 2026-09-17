@@ -642,7 +642,7 @@
 	<section id="join" class="section">
 		<p class="join-intro">we're looking for design partners who want to co-develop</p>
 
-		<form id="joinForm" class="join-form">
+		<form id="joinForm" class="join-form" action="https://formsubmit.co/build@haystack.llc" method="POST">
 			<div class="form-group">
 				<label for="name" class="required-indicator">name</label>
 				<input type="text" id="name" name="name" required>
@@ -795,29 +795,8 @@
 				});
 			});
 
-			// Join form submission
-			const joinForm = document.getElementById('joinForm');
-			if (joinForm) {
-				joinForm.addEventListener('submit', (e) => {
-					e.preventDefault();
-
-					// Collect form data
-					const formData = new FormData(joinForm);
-
-					// Submit to formsubmit.co
-					fetch('https://formsubmit.co/build@haystack.llc', {
-						method: 'POST',
-						body: formData
-					}).then(() => {
-						// Show success and redirect home
-						setTimeout(() => {
-							showSection('hero');
-						}, 500);
-					}).catch(err => {
-						console.error('Form submission error:', err);
-					});
-				});
-			}
+			// Join form submission - traditional POST to formsubmit.co
+			// Form will handle submission natively via HTML form attributes
 		});
 	</script>
 </body>
