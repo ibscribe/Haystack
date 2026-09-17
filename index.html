@@ -696,7 +696,14 @@
 		let currentIndex = 0;
 		const taglineElement = document.getElementById('tagline');
 
+		// Check for form submission confirmation first
+		const urlParams = new URLSearchParams(window.location.search);
+		const isConfirmation = urlParams.has('submitted');
+
 		function typeSlogan() {
+			// Don't type slogans if this is a confirmation view
+			if (isConfirmation) return;
+
 			const slogan = slogans[currentIndex];
 			let charIndex = 0;
 			taglineElement.textContent = '';
@@ -718,9 +725,8 @@
 
 		typeSlogan();
 
-		// Check for form submission confirmation
-		const urlParams = new URLSearchParams(window.location.search);
-		if (urlParams.has('submitted')) {
+		// Handle form submission confirmation
+		if (isConfirmation) {
 			// Stop rotating slogans - use typewriter effect for confirmation
 			const taglineElement = document.getElementById('tagline');
 			const confirmationText = "we'll be in touch soon...";
