@@ -367,9 +367,18 @@
 		}
 
 		.submit-button {
+			padding: 14px 32px;
+			font-family: 'Consolas', 'Monaco', monospace;
+			font-size: 14px;
+			font-weight: 600;
+			letter-spacing: 0.5px;
+			text-transform: lowercase;
 			background-color: transparent;
 			color: #8B4513;
 			border: 2px solid #D4A574;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: all 0.2s;
 		}
 
 		.submit-button:hover {
@@ -643,6 +652,8 @@
 		<p class="join-intro">we're looking for design partners who want to co-develop</p>
 
 		<form id="joinForm" class="join-form" action="https://formsubmit.co/build@haystack.llc" method="POST">
+			<input type="hidden" name="_next" value="https://haystack.llc/">
+			<input type="hidden" name="_captcha" value="false">
 			<div class="form-group">
 				<label for="name" class="required-indicator">name</label>
 				<input type="text" id="name" name="name" required>
@@ -796,19 +807,7 @@
 			});
 
 			// Join form submission - traditional POST to formsubmit.co
-			const joinForm = document.getElementById('joinForm');
-			console.log('Join form element:', joinForm);
-
-			if (joinForm) {
-				joinForm.addEventListener('submit', (e) => {
-					console.log('Form submit event fired');
-					console.log('Form will POST to:', joinForm.action);
-					console.log('Form method:', joinForm.method);
-					// Let the form submit naturally
-				});
-			} else {
-				console.log('ERROR: Join form not found!');
-			}
+			// Form handles submission natively via HTML attributes
 		});
 	</script>
 </body>
