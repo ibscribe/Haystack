@@ -597,14 +597,11 @@
 	</nav>
 
 	<main id="hero">
-		<div id="confirmation-message" style="display: none; text-align: center; margin-bottom: 20px;">
-			<p style="font-family: 'Consolas', 'Monaco', monospace; font-size: 1.2rem; color: #D4A574; margin-bottom: 8px;">we'll be in touch soon...</p>
-		</div>
 		<h1>Haystack Talent</h1>
-		<div class="tagline-container">
+		<div class="tagline-container" id="tagline-container">
 			<span id="tagline"></span><span class="cursor"></span>
 		</div>
-		<button class="cta-button">join the build</button>
+		<button class="cta-button" id="cta-button">join the build</button>
 	</main>
 
 	<section id="what" class="section">
@@ -724,8 +721,26 @@
 		// Check for form submission confirmation
 		const urlParams = new URLSearchParams(window.location.search);
 		if (urlParams.has('submitted')) {
-			const confirmationDiv = document.getElementById('confirmation-message');
-			confirmationDiv.style.display = 'block';
+			// Stop rotating slogans - use typewriter effect for confirmation
+			const taglineElement = document.getElementById('tagline');
+			const confirmationText = "we'll be in touch soon...";
+			let confirmCharIndex = 0;
+			taglineElement.textContent = '';
+
+			const confirmTypeInterval = setInterval(() => {
+				if (confirmCharIndex < confirmationText.length) {
+					taglineElement.textContent += confirmationText[confirmCharIndex];
+					confirmCharIndex++;
+				} else {
+					clearInterval(confirmTypeInterval);
+					taglineElement.textContent += ' ';
+				}
+			}, 50);
+
+			// Hide the CTA button
+			const ctaButton = document.getElementById('cta-button');
+			ctaButton.style.display = 'none';
+
 			// Clean up URL
 			window.history.replaceState({}, document.title, window.location.pathname);
 		}
