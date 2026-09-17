@@ -26,6 +26,7 @@
 			justify-content: space-between;
 			padding: 20px 40px;
 			border-bottom: 3px solid #D4A574;
+			position: relative;
 		}
 
 		.nav-links {
@@ -44,6 +45,67 @@
 		}
 
 		.nav-links a:hover {
+			color: #D4A574;
+		}
+
+		.hamburger {
+			display: none;
+			background: none;
+			border: none;
+			cursor: pointer;
+			padding: 8px;
+			flex-direction: column;
+			gap: 5px;
+		}
+
+		.hamburger span {
+			display: block;
+			width: 24px;
+			height: 2px;
+			background-color: #8B4513;
+			transition: all 0.3s;
+		}
+
+		.hamburger.active span:nth-child(1) {
+			transform: rotate(45deg) translate(10px, 10px);
+		}
+
+		.hamburger.active span:nth-child(2) {
+			opacity: 0;
+		}
+
+		.hamburger.active span:nth-child(3) {
+			transform: rotate(-45deg) translate(7px, -7px);
+		}
+
+		.mobile-menu {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			background: #fff;
+			border-bottom: 3px solid #D4A574;
+			flex-direction: column;
+			padding: 16px 20px;
+			gap: 16px;
+			z-index: 100;
+		}
+
+		.mobile-menu.active {
+			display: flex;
+		}
+
+		.mobile-menu a {
+			font-family: 'Consolas', 'Monaco', monospace;
+			font-size: 14px;
+			font-weight: 600;
+			text-decoration: none;
+			color: #8B4513;
+			transition: color 0.2s;
+		}
+
+		.mobile-menu a:hover {
 			color: #D4A574;
 		}
 
@@ -237,6 +299,14 @@
 				font-size: 12px;
 			}
 
+			.hamburger {
+				display: flex;
+			}
+
+			.nav-links {
+				display: none;
+			}
+
 			main {
 				min-height: calc(100vh - 65px);
 				gap: 12px;
@@ -265,6 +335,28 @@
 				padding: 12px 24px;
 				font-size: 12px;
 				min-height: 44px;
+			}
+
+			.section {
+				padding: 60px 20px 40px;
+			}
+
+			.section h2 {
+				font-size: 2rem;
+				letter-spacing: 0.5px;
+			}
+
+			.section p {
+				font-size: 0.95rem;
+			}
+
+			.section-buttons {
+				flex-direction: column;
+				gap: 12px;
+			}
+
+			.section-button {
+				width: 100%;
 			}
 		}
 
@@ -314,6 +406,33 @@
 				font-size: 11px;
 				min-height: 44px;
 			}
+
+			.section {
+				padding: 50px 16px 30px;
+			}
+
+			.section h2 {
+				font-size: 1.5rem;
+				letter-spacing: 0.25px;
+				margin-bottom: 16px;
+			}
+
+			.section p {
+				font-size: 0.9rem;
+				margin-bottom: 12px;
+			}
+
+			.section-buttons {
+				flex-direction: column;
+				gap: 10px;
+				margin-top: 30px;
+			}
+
+			.section-button {
+				width: 100%;
+				padding: 12px 20px;
+				font-size: 12px;
+			}
 		}
 	</style>
 </head>
@@ -323,6 +442,17 @@
 			<span class="logo-letter">H</span><span class="logo-slash">/</span><span class="logo-letter">T</span>
 		</button>
 		<div class="nav-links">
+			<a href="#what">WHAT</a>
+			<a href="#why">WHY</a>
+			<a href="#how">HOW</a>
+			<a href="#who">WHO</a>
+		</div>
+		<button class="hamburger">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+		<div class="mobile-menu">
 			<a href="#what">WHAT</a>
 			<a href="#why">WHY</a>
 			<a href="#how">HOW</a>
@@ -444,9 +574,37 @@
 			document.querySelector('.logo-button').addEventListener('click', (e) => {
 				e.preventDefault();
 				showSection('hero');
+				// Close mobile menu if open
+				const hamburger = document.querySelector('.hamburger');
+				const mobileMenu = document.querySelector('.mobile-menu');
+				hamburger.classList.remove('active');
+				mobileMenu.classList.remove('active');
 			});
 
-			// Nav links
+			// Hamburger menu toggle
+			document.querySelector('.hamburger').addEventListener('click', (e) => {
+				e.preventDefault();
+				const hamburger = document.querySelector('.hamburger');
+				const mobileMenu = document.querySelector('.mobile-menu');
+				hamburger.classList.toggle('active');
+				mobileMenu.classList.toggle('active');
+			});
+
+			// Mobile menu links
+			document.querySelectorAll('.mobile-menu a').forEach(link => {
+				link.addEventListener('click', (e) => {
+					e.preventDefault();
+					const sectionId = link.getAttribute('href').substring(1);
+					showSection(sectionId);
+					// Close mobile menu after selecting
+					const hamburger = document.querySelector('.hamburger');
+					const mobileMenu = document.querySelector('.mobile-menu');
+					hamburger.classList.remove('active');
+					mobileMenu.classList.remove('active');
+				});
+			});
+
+			// Nav links (desktop)
 			document.querySelectorAll('.nav-links a').forEach(link => {
 				link.addEventListener('click', (e) => {
 					e.preventDefault();
