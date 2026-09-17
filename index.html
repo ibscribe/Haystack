@@ -597,6 +597,9 @@
 	</nav>
 
 	<main id="hero">
+		<div id="confirmation-message" style="display: none; text-align: center; margin-bottom: 20px;">
+			<p style="font-family: 'Consolas', 'Monaco', monospace; font-size: 1.2rem; color: #D4A574; margin-bottom: 8px;">we'll be in touch soon...</p>
+		</div>
 		<h1>Haystack Talent</h1>
 		<div class="tagline-container">
 			<span id="tagline"></span><span class="cursor"></span>
@@ -652,7 +655,7 @@
 		<p class="join-intro">we're looking for design partners who want to co-develop</p>
 
 		<form id="joinForm" class="join-form" action="https://formsubmit.co/build@haystack.llc" method="POST">
-			<input type="hidden" name="_next" value="https://haystack.llc/">
+			<input type="hidden" name="_next" value="https://haystack.llc/?submitted=true">
 			<input type="hidden" name="_captcha" value="false">
 			<div class="form-group">
 				<label for="name" class="required-indicator">name</label>
@@ -717,6 +720,15 @@
 		}
 
 		typeSlogan();
+
+		// Check for form submission confirmation
+		const urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.has('submitted')) {
+			const confirmationDiv = document.getElementById('confirmation-message');
+			confirmationDiv.style.display = 'block';
+			// Clean up URL
+			window.history.replaceState({}, document.title, window.location.pathname);
+		}
 
 		function showSection(sectionId) {
 			// Hide all sections and hero
