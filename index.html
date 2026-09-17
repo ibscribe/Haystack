@@ -280,8 +280,115 @@
 			background-color: #D4A574;
 		}
 
+		#join {
+			text-align: center;
+		}
+
+		#join h2 {
+			margin-bottom: 16px;
+		}
+
+		#join > p {
+			max-width: 600px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 32px;
+		}
+
+		.join-intro {
+			font-family: 'Consolas', 'Monaco', monospace;
+			font-size: 1rem;
+			font-weight: 400;
+			color: #8B4513;
+			letter-spacing: 0.5px;
+		}
+
+		.join-form {
+			max-width: 600px;
+			margin: 0 auto;
+			text-align: left;
+			background-color: #F5EBE0;
+			padding: 40px;
+			border-radius: 8px;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 24px;
+		}
+
+		.form-group.full-width {
+			grid-column: 1 / -1;
+		}
+
+		.form-group {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 24px;
+		}
+
+		.form-group label {
+			font-family: 'Consolas', 'Monaco', monospace;
+			font-size: 0.9rem;
+			font-weight: 600;
+			color: #8B4513;
+			margin-bottom: 8px;
+		}
+
+		.form-group input,
+		.form-group select,
+		.form-group textarea {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			font-size: 1rem;
+			padding: 12px;
+			border: 1px solid #D4A574;
+			border-radius: 4px;
+			color: #000;
+			background-color: #fff;
+		}
+
+		.form-group input:focus,
+		.form-group select:focus,
+		.form-group textarea:focus {
+			outline: none;
+			border-color: #8B4513;
+			box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.1);
+		}
+
+		.form-group textarea {
+			resize: vertical;
+			line-height: 1.5;
+		}
+
+		.form-buttons {
+			display: flex;
+			gap: 16px;
+			margin-top: 40px;
+			justify-content: center;
+			grid-column: 1 / -1;
+		}
+
+		.submit-button {
+			background-color: transparent;
+			color: #8B4513;
+			border: 2px solid #D4A574;
+		}
+
+		.submit-button:hover {
+			background-color: #D4A574;
+			color: #fff;
+		}
+
+		.required-indicator::after {
+			content: " *";
+			color: #D4A574;
+			font-weight: 700;
+		}
+
 		/* Mobile Styles */
 		@media (max-width: 768px) {
+			.join-form {
+				grid-template-columns: 1fr;
+			}
+
 			nav {
 				padding: 16px 20px;
 			}
@@ -433,6 +540,26 @@
 				padding: 12px 20px;
 				font-size: 12px;
 			}
+
+			.join-form {
+				margin: 30px auto 0;
+			}
+
+			.form-group input,
+			.form-group select,
+			.form-group textarea {
+				font-size: 16px;
+			}
+
+			.form-buttons {
+				flex-direction: column;
+				gap: 10px;
+				margin-top: 30px;
+			}
+
+			.form-buttons .section-button {
+				width: 100%;
+			}
 		}
 	</style>
 </head>
@@ -510,6 +637,41 @@
 			<button class="section-button" data-section="how">← back to how</button>
 			<button class="section-button" data-section="join">join the build →</button>
 		</div>
+	</section>
+
+	<section id="join" class="section">
+		<p class="join-intro">we're looking for design partners who want to co-develop</p>
+
+		<form id="joinForm" class="join-form">
+			<div class="form-group">
+				<label for="name" class="required-indicator">name</label>
+				<input type="text" id="name" name="name" required>
+			</div>
+
+			<div class="form-group">
+				<label for="email" class="required-indicator">email</label>
+				<input type="email" id="email" name="email" required>
+			</div>
+
+			<div class="form-group">
+				<label for="company">company</label>
+				<input type="text" id="company" name="company">
+			</div>
+
+			<div class="form-group">
+				<label for="role">role</label>
+				<input type="text" id="role" name="role">
+			</div>
+
+			<div class="form-group full-width">
+				<label for="message">challenge(s)</label>
+				<textarea id="message" name="message" rows="4"></textarea>
+			</div>
+
+			<div class="form-buttons">
+				<button type="submit" class="section-button submit-button">let's build!</button>
+			</div>
+		</form>
 	</section>
 
 	<script>
@@ -613,19 +775,49 @@
 				});
 			});
 
+			// CTA button for "join the build" on hero
+			document.querySelector('.cta-button').addEventListener('click', (e) => {
+				e.preventDefault();
+				showSection('join');
+				// Close mobile menu if open
+				const hamburger = document.querySelector('.hamburger');
+				const mobileMenu = document.querySelector('.mobile-menu');
+				hamburger.classList.remove('active');
+				mobileMenu.classList.remove('active');
+			});
+
 			// Section buttons
 			document.querySelectorAll('.section-button').forEach(button => {
 				button.addEventListener('click', (e) => {
 					e.preventDefault();
 					const sectionId = button.getAttribute('data-section');
-					if (sectionId === 'join') {
-						// Open the join form or external link
-						showSection('hero');
-					} else {
-						showSection(sectionId);
-					}
+					showSection(sectionId);
 				});
 			});
+
+			// Join form submission
+			const joinForm = document.getElementById('joinForm');
+			if (joinForm) {
+				joinForm.addEventListener('submit', (e) => {
+					e.preventDefault();
+
+					// Collect form data
+					const formData = new FormData(joinForm);
+
+					// Submit to formsubmit.co
+					fetch('https://formsubmit.co/build@haystack.llc', {
+						method: 'POST',
+						body: formData
+					}).then(() => {
+						// Show success and redirect home
+						setTimeout(() => {
+							showSection('hero');
+						}, 500);
+					}).catch(err => {
+						console.error('Form submission error:', err);
+					});
+				});
+			}
 		});
 	</script>
 </body>
