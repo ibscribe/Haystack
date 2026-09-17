@@ -57,6 +57,27 @@
 			letter-spacing: 2px;
 		}
 
+		button.logo-button {
+			display: flex !important;
+			align-items: center !important;
+			gap: 0 !important;
+			background: none !important;
+			border: none !important;
+			padding: 0 !important;
+			margin: 0 !important;
+			cursor: pointer !important;
+			font-family: 'Consolas', 'Monaco', monospace !important;
+			font-size: 24px !important;
+			font-weight: 900 !important;
+			letter-spacing: 2px !important;
+			transition: opacity 0.2s !important;
+			line-height: 1 !important;
+		}
+
+		.logo-button:hover {
+			opacity: 0.8;
+		}
+
 		.logo-letter {
 			color: #8B4513;
 		}
@@ -67,12 +88,16 @@
 		}
 
 		main {
-			height: calc(100vh - 81px);
-			display: flex;
+			display: none;
+			min-height: calc(100vh - 81px);
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
 			gap: 16px;
+		}
+
+		main.active {
+			display: flex;
 		}
 
 		h1 {
@@ -132,6 +157,67 @@
 			background-color: #D4A574;
 		}
 
+		.section {
+			display: none;
+			min-height: 100vh;
+			padding: 80px 40px 40px;
+			max-width: 900px;
+			margin: 0 auto;
+		}
+
+		.section.active {
+			display: block;
+		}
+
+		main.hidden {
+			display: none;
+		}
+
+		.section h2 {
+			font-family: 'Consolas', 'Monaco', monospace;
+			font-size: 2.5rem;
+			font-weight: 900;
+			letter-spacing: 1px;
+			color: #8B4513;
+			margin-bottom: 24px;
+		}
+
+		.section p {
+			font-size: 1rem;
+			line-height: 1.6;
+			color: #333;
+			margin-bottom: 16px;
+		}
+
+		.section-buttons {
+			display: flex;
+			gap: 16px;
+			margin-top: 40px;
+			justify-content: center;
+		}
+
+		.section-button {
+			padding: 14px 32px;
+			font-family: 'Consolas', 'Monaco', monospace;
+			font-size: 14px;
+			font-weight: 600;
+			letter-spacing: 0.5px;
+			text-transform: lowercase;
+			color: #8B4513;
+			background-color: transparent;
+			border: 2px solid #D4A574;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: all 0.2s;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		.section-button:hover {
+			color: #fff;
+			background-color: #D4A574;
+		}
+
 		/* Mobile Styles */
 		@media (max-width: 768px) {
 			nav {
@@ -152,7 +238,7 @@
 			}
 
 			main {
-				height: calc(100vh - 65px);
+				min-height: calc(100vh - 65px);
 				gap: 12px;
 				padding: 0 20px;
 			}
@@ -201,7 +287,7 @@
 			}
 
 			main {
-				height: calc(100vh - 57px);
+				min-height: calc(100vh - 57px);
 				gap: 10px;
 				padding: 0 16px;
 			}
@@ -233,24 +319,68 @@
 </head>
 <body>
 	<nav>
-		<div class="logo">
+		<button class="logo logo-button">
 			<span class="logo-letter">H</span><span class="logo-slash">/</span><span class="logo-letter">T</span>
-		</div>
+		</button>
 		<div class="nav-links">
-			<a href="#what">What</a>
-			<a href="#why">Why</a>
-			<a href="#how">How</a>
-			<a href="#who">Who</a>
+			<a href="#what">WHAT</a>
+			<a href="#why">WHY</a>
+			<a href="#how">HOW</a>
+			<a href="#who">WHO</a>
 		</div>
 	</nav>
 
-	<main>
+	<main id="hero">
 		<h1>Haystack Talent</h1>
 		<div class="tagline-container">
 			<span id="tagline"></span><span class="cursor"></span>
 		</div>
 		<button class="cta-button">join the build</button>
 	</main>
+
+	<section id="what" class="section">
+		<h2>WHAT</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+		<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+		<div class="section-buttons">
+			<button class="section-button" data-section="hero">← back to home</button>
+			<button class="section-button" data-section="why">on to why →</button>
+		</div>
+	</section>
+
+	<section id="why" class="section">
+		<h2>WHY</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+		<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+		<div class="section-buttons">
+			<button class="section-button" data-section="what">← back to what</button>
+			<button class="section-button" data-section="how">on to how →</button>
+		</div>
+	</section>
+
+	<section id="how" class="section">
+		<h2>HOW</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+		<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+		<div class="section-buttons">
+			<button class="section-button" data-section="why">← back to why</button>
+			<button class="section-button" data-section="who">on to who →</button>
+		</div>
+	</section>
+
+	<section id="who" class="section">
+		<h2>WHO</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+		<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+		<div class="section-buttons">
+			<button class="section-button" data-section="how">← back to how</button>
+			<button class="section-button" data-section="join">join the build →</button>
+		</div>
+	</section>
 
 	<script>
 		const slogans = [
@@ -284,6 +414,61 @@
 		}
 
 		typeSlogan();
+
+		function showSection(sectionId) {
+			// Hide all sections and hero
+			document.querySelectorAll('.section').forEach(section => {
+				section.classList.remove('active');
+			});
+			document.getElementById('hero').classList.remove('active');
+
+			// Show selected section
+			const target = document.getElementById(sectionId);
+			if (target) {
+				target.classList.add('active');
+			} else {
+				// If hero, show it instead
+				document.getElementById('hero').classList.add('active');
+			}
+
+			// Scroll to top
+			window.scrollTo(0, 0);
+		}
+
+		// Show hero by default
+		document.getElementById('hero').classList.add('active');
+
+		// Section navigation - attach after DOM is ready
+		document.addEventListener('DOMContentLoaded', function() {
+			// Logo home button
+			document.querySelector('.logo-button').addEventListener('click', (e) => {
+				e.preventDefault();
+				showSection('hero');
+			});
+
+			// Nav links
+			document.querySelectorAll('.nav-links a').forEach(link => {
+				link.addEventListener('click', (e) => {
+					e.preventDefault();
+					const sectionId = link.getAttribute('href').substring(1);
+					showSection(sectionId);
+				});
+			});
+
+			// Section buttons
+			document.querySelectorAll('.section-button').forEach(button => {
+				button.addEventListener('click', (e) => {
+					e.preventDefault();
+					const sectionId = button.getAttribute('data-section');
+					if (sectionId === 'join') {
+						// Open the join form or external link
+						showSection('hero');
+					} else {
+						showSection(sectionId);
+					}
+				});
+			});
+		});
 	</script>
 </body>
 </html>
