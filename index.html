@@ -669,7 +669,7 @@
 			</div>
 
 			<div class="form-buttons">
-				<button type="submit" class="section-button submit-button">let's build!</button>
+				<button type="submit" class="submit-button">let's build!</button>
 			</div>
 		</form>
 	</section>
@@ -796,7 +796,19 @@
 			});
 
 			// Join form submission - traditional POST to formsubmit.co
-			// Form will handle submission natively via HTML form attributes
+			const joinForm = document.getElementById('joinForm');
+			console.log('Join form element:', joinForm);
+
+			if (joinForm) {
+				joinForm.addEventListener('submit', (e) => {
+					console.log('Form submit event fired');
+					console.log('Form will POST to:', joinForm.action);
+					console.log('Form method:', joinForm.method);
+					// Let the form submit naturally
+				});
+			} else {
+				console.log('ERROR: Join form not found!');
+			}
 		});
 	</script>
 </body>
