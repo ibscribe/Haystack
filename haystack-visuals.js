@@ -101,14 +101,21 @@ scene('why', (w, h) => ({
   ctx.fillStyle = BG; ctx.fillRect(0, 0, w, h);
   ctx.globalCompositeOperation = 'multiply';
   for (const f of s.fog) haze(ctx, (f.x + Math.sin(t * .08 + f.ph) * .08) * w, (f.y + Math.cos(t * .06 + f.ph) * .08) * h, f.r * Math.max(w, h), f.c, f.c === HAZE ? .14 : .06);
-  const field = (x, y) => (Math.sin(x * .006 + t * .25) + Math.sin(y * .007 - t * .18) + Math.sin((x + y) * .003 + t * .12)) * 1.1;
+  /* swirling flow that can't pile particles up: its sweeps shear past each other instead of draining into lines */
+  const flow = (x, y) => {
+    const c = Math.cos((x + y) * .003 + t * .12) * .25;
+    return [Math.cos(y * .007 - t * .18) * .45 + c + .12, -(Math.cos(x * .006 + t * .25) * .45 + c)];
+  };
   for (const p of s.pts) {
-    const a = field(p.x, p.y); p.x += Math.cos(a) * .7 * s.k; p.y += Math.sin(a) * .7 * s.k;
+    const [vx, vy] = flow(p.x, p.y); p.x += vx * s.k; p.y += vy * s.k;
     if (p.x < -5) p.x = w + 5; if (p.x > w + 5) p.x = -5; if (p.y < -5) p.y = h + 5; if (p.y > h + 5) p.y = -5;
-    ctx.fillStyle = rgba(p.warm ? EMBER : STRAW, p.a); ctx.fillRect(p.x, p.y, p.s, p.s);
+    /* every so often a particle quietly reappears somewhere new, fading in */
+    if (Math.random() < .0012 * s.k) { p.x = R(0, w); p.y = R(0, h); p.life = 0; }
+    p.life = Math.min(1, (p.life ?? 1) + .02 * s.k);
+    ctx.fillStyle = rgba(p.warm ? EMBER : STRAW, p.a * p.life); ctx.fillRect(p.x, p.y, p.s, p.s);
   }
   for (const e of s.embers) {
-    const a = field(e.x, e.y); e.x += Math.cos(a) * .4 * s.k; e.y += Math.sin(a) * .4 * s.k;
+    const [vx, vy] = flow(e.x, e.y); e.x += vx * .6 * s.k; e.y += vy * .6 * s.k;
     if (e.x < w * .1 || e.x > w * .9 || e.y < h * .1 || e.y > h * .9) { e.x = R(w * .3, w * .7); e.y = R(h * .3, h * .7); }
     const p = .5 + .5 * Math.sin(t * 1.4 + e.ph);
     haze(ctx, e.x, e.y, 26, STRAW, .45 * p); haze(ctx, e.x, e.y, 4, CORE, .9 * p);

@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 	<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="expires" content="0">
 	<title>Haystack Talent</title>
-	<link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
 	<style>
 		* {
 			margin: 0;
@@ -16,7 +16,7 @@
 		}
 
 		body {
-			font-family: 'Jost', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 			background: #fff;
 			color: #000;
 		}
@@ -37,7 +37,7 @@
 		}
 
 		.nav-links a {
-			font-family: 'Consolas', 'Monaco', monospace;
+			font-family: 'IBM Plex Mono', monospace;
 			font-size: 14px;
 			font-weight: 600;
 			text-decoration: none;
@@ -98,7 +98,7 @@
 		}
 
 		.mobile-menu a {
-			font-family: 'Consolas', 'Monaco', monospace;
+			font-family: 'IBM Plex Mono', monospace;
 			font-size: 14px;
 			font-weight: 600;
 			text-decoration: none;
@@ -114,7 +114,7 @@
 			display: flex;
 			align-items: center;
 			gap: 0;
-			font-family: 'Consolas', 'Monaco', monospace;
+			font-family: 'IBM Plex Mono', monospace;
 			font-weight: 900;
 			font-size: 24px;
 			letter-spacing: 2px;
@@ -129,7 +129,7 @@
 			padding: 0 !important;
 			margin: 0 !important;
 			cursor: pointer !important;
-			font-family: 'Consolas', 'Monaco', monospace !important;
+			font-family: 'IBM Plex Mono', monospace !important;
 			font-size: 24px !important;
 			font-weight: 900 !important;
 			letter-spacing: 2px !important;
@@ -172,6 +172,8 @@
 			height: 100%;
 			z-index: 0;
 			pointer-events: none;
+			-webkit-mask-image: radial-gradient(ellipse 46% 34% at 50% 50%, transparent 50%, #000 100%);
+					mask-image: radial-gradient(ellipse 46% 34% at 50% 50%, transparent 50%, #000 100%);
 		}
 
 		main > * {
@@ -180,7 +182,7 @@
 		}
 
 		h1 {
-			font-family: 'Consolas', 'Monaco', monospace;
+			font-family: 'IBM Plex Mono', monospace;
 			font-size: 4rem;
 			font-weight: 900;
 			letter-spacing: 2px;
@@ -188,7 +190,7 @@
 		}
 
 		.tagline-container {
-			font-family: 'Consolas', 'Monaco', monospace;
+			font-family: 'IBM Plex Mono', monospace;
 			font-size: 1.2rem;
 			font-weight: 400;
 			letter-spacing: 0.5px;
@@ -215,10 +217,29 @@
 			}
 		}
 
+		/* Page fade transitions */
+		main, .section {
+			transition: opacity .28s ease;
+		}
+
+		.is-leaving {
+			opacity: 0;
+		}
+
+		.is-entering {
+			opacity: 0;
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			main, .section {
+				transition: none;
+			}
+		}
+
 		.cta-button {
 			margin-top: 40px;
 			padding: 14px 32px;
-			font-family: 'Consolas', 'Monaco', monospace;
+			font-family: 'IBM Plex Mono', monospace;
 			font-size: 14px;
 			font-weight: 600;
 			letter-spacing: 0.5px;
@@ -239,7 +260,7 @@
 		.section {
 			display: none;
 			min-height: 100vh;
-			padding: 80px 40px 40px;
+			padding: 80px 40px 140px;
 			margin: 0 auto;
 			position: relative;
 		}
@@ -247,7 +268,8 @@
 		.section.active {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
-			gap: 60px;
+			column-gap: 60px;
+			row-gap: 0;
 			align-items: start;
 			max-width: 1400px;
 		}
@@ -261,8 +283,9 @@
 			min-height: 60vh;
 			z-index: 0;
 			pointer-events: none;
-			-webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-					mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+			display: block;
+			-webkit-mask-image: radial-gradient(closest-side, #000 65%, transparent 100%);
+					mask-image: radial-gradient(closest-side, #000 65%, transparent 100%);
 		}
 
 		.section h2,
@@ -276,12 +299,21 @@
 			z-index: 1;
 		}
 
+		/* Join page: single centered column with visual background */
+		#join.section.active {
+			display: block;
+		}
+
+		#join .join-intro {
+			margin-bottom: 32px;
+		}
+
 		main.hidden {
 			display: none;
 		}
 
 		.section h2 {
-			font-family: 'Consolas', 'Monaco', monospace;
+			font-family: 'IBM Plex Mono', monospace;
 			font-size: 2.5rem;
 			font-weight: 900;
 			letter-spacing: 1px;
@@ -297,21 +329,28 @@
 		}
 
 		.section-buttons {
+			position: fixed;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 20;
+			margin: 0;
+			padding: 14px max(40px, calc((100vw - 1400px) / 2 + 40px)) calc(14px + env(safe-area-inset-bottom, 0px));
+			background: #fff;
+			border-top: 3px solid #D4A574;
 			display: flex;
-			gap: 16px;
-			margin-top: 40px;
-			justify-content: center;
+			justify-content: space-between;
 		}
 
 		.section-button {
 			padding: 14px 32px;
-			font-family: 'Consolas', 'Monaco', monospace;
+			font-family: 'IBM Plex Mono', monospace;
 			font-size: 14px;
 			font-weight: 600;
 			letter-spacing: 0.5px;
 			text-transform: lowercase;
 			color: #8B4513;
-			background-color: transparent;
+			background-color: #fff;
 			border: 2px solid #D4A574;
 			border-radius: 4px;
 			cursor: pointer;
@@ -323,6 +362,15 @@
 		.section-button:hover {
 			color: #fff;
 			background-color: #D4A574;
+		}
+
+		.section-button:last-child {
+			background-color: #F5EBE0;
+		}
+
+		.accent-quote {
+			color: #D4A574;
+			font-weight: 600;
 		}
 
 		#join {
@@ -341,7 +389,7 @@
 		}
 
 		.join-intro {
-			font-family: 'Consolas', 'Monaco', monospace;
+			font-family: 'IBM Plex Mono', monospace;
 			font-size: 1rem;
 			font-weight: 400;
 			color: #8B4513;
@@ -373,7 +421,7 @@
 		}
 
 		.form-group label {
-			font-family: 'Consolas', 'Monaco', monospace;
+			font-family: 'IBM Plex Mono', monospace;
 			font-size: 0.9rem;
 			font-weight: 600;
 			color: #8B4513;
@@ -383,7 +431,7 @@
 		.form-group input,
 		.form-group select,
 		.form-group textarea {
-			font-family: 'Jost', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 			font-size: 1rem;
 			padding: 12px;
 			border: 1px solid #D4A574;
@@ -415,7 +463,7 @@
 
 		.submit-button {
 			padding: 14px 32px;
-			font-family: 'Consolas', 'Monaco', monospace;
+			font-family: 'IBM Plex Mono', monospace;
 			font-size: 14px;
 			font-weight: 600;
 			letter-spacing: 0.5px;
@@ -500,20 +548,53 @@
 				min-height: 44px;
 			}
 
+			.section-buttons {
+				padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+			}
+
+			.section-buttons .section-button {
+				padding: 12px 16px;
+				min-height: 44px;
+			}
+
 			.section {
 				padding: 60px 20px 40px;
+				padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
 			}
 
 			.section.active {
 				grid-template-columns: 1fr;
-				gap: 40px;
+				column-gap: 0;
+				row-gap: 0;
 				max-width: 100%;
 			}
 
-			.section canvas {
+			/* put everything back in the single column on phones */
+			.section.active > * {
 				grid-column: 1;
+			}
+
+			/* give the visual a fixed shape */
+			.section canvas {
 				grid-row: auto;
-				min-height: 40vh;
+				width: 100%;
+				height: auto !important;
+				aspect-ratio: 4 / 3;
+				min-height: 0;
+				max-height: none;
+				margin-bottom: 32px;
+			}
+
+			/* Join page on mobile: full background visual */
+			#join.section.active {
+				display: block;
+				position: relative;
+				min-height: 100vh;
+			}
+
+
+			#join .join-intro {
+				margin-bottom: 32px;
 			}
 
 			.section h2 {
@@ -526,12 +607,14 @@
 			}
 
 			.section-buttons {
-				flex-direction: column;
+				flex-direction: row;
 				gap: 12px;
+				padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
 			}
 
-			.section-button {
-				width: 100%;
+			.section-buttons .section-button {
+				padding: 12px 16px;
+				min-height: 44px;
 			}
 		}
 
@@ -584,18 +667,31 @@
 
 			.section {
 				padding: 50px 16px 30px;
+				padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
 			}
 
 			.section.active {
 				grid-template-columns: 1fr;
-				gap: 30px;
+				column-gap: 0;
+				row-gap: 0;
 				max-width: 100%;
 			}
 
-			.section canvas {
+			/* put everything back in the single column on small phones */
+			.section.active > * {
 				grid-column: 1;
-				grid-row: auto;
-				min-height: 35vh;
+			}
+
+			/* Join page on small phones: full background visual */
+			#join.section.active {
+				display: block;
+				position: relative;
+				min-height: 100vh;
+			}
+
+
+			#join .join-intro {
+				margin-bottom: 32px;
 			}
 
 			.section h2 {
@@ -619,6 +715,12 @@
 				width: 100%;
 				padding: 12px 20px;
 				font-size: 12px;
+			}
+
+			.section-buttons {
+				flex-direction: row;
+				gap: 12px;
+				padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
 			}
 
 			.join-form {
@@ -677,10 +779,10 @@
 	</main>
 
 	<section id="why" class="section">
-		<canvas data-haystack="why" style="width:100%; height:100%;"></canvas>
+		<canvas data-haystack="why"></canvas>
 		<h2>why</h2>
 		<p>Executive talent is critical to scaling a company as it looks to hit its next milestone, but leadership searches are long-running and high-touch processes. Accessing top talent requires navigating close-knit networks and evaluating leaders takes domain-specific expertise. Navigating the talent marketplace to successfully hire impactful executives means coordinating across in-house recruiting, external search firms, and investor talent partners. All of these collaborators are sitting on untapped data that could accelerate and streamline executive searches.</p>
-		<p>When you're sourcing and selling executives, it comes down to who you know and if they'll respond. In an ideal world, you would be able to ask questions like "who do we know that would be a fit for this role?" and get a list of warm candidates and a script for how to reach out. This would allow everyone in the process to spend more time on the human-fit element and less on admin work.</p>
+		<p>When you're sourcing and selling executives, it comes down to who you know and if they'll respond. In an ideal world, you would be able to ask questions like <span class="accent-quote">"who do we know that would be a fit for this role?"</span> and get a list of warm candidates and a script for how to reach out. This would allow everyone in the process to spend more time on the human-fit element and less on admin work.</p>
 		<p>It's a given that executive placement is a hands-on process, but more and more companies are looking to scale with frontier hires that have no precedent; as traditional role archetypes collapse and converge, more and more hiring will resemble the bespoke nature of retained search. And as public information on candidates gets commoditized and harder to pull, private data like intake notes, backchannel conversations, and reference checks becomes more critical. Tapping into this latent intel and making it actionable is how people evaluation moves from keyword search to explainable reasoning.</p>
 		<div class="section-buttons">
 			<button class="section-button" data-section="hero">← back to home</button>
@@ -689,11 +791,11 @@
 	</section>
 
 	<section id="what" class="section">
-		<canvas data-haystack="what" style="width:100%; height:100%;"></canvas>
+		<canvas data-haystack="what"></canvas>
 		<h2>what</h2>
-		<p>Whether you are a boutique search firm, a PE/VC talent team, or an internal exec recruiting function, you likely have an ATS for moving candidates through your workflow and a CRM serving as a candidate database. And despite those tools claiming to be systems of record, tons of work and the majority of decisions are happening through live discussion, most of which is now recorded and accessible via video conferencing and AI notetakers. The conundrum is it's difficult to move off databases that have 10+ years of work exhaust in them, and for many search firms and talent teams that annotated rolodex IS the most valuable asset.</p>
-		<p>An ideal system would live alongside the legacy ATS/CRM and could bridge the gap to modern workflow tools. Such an intelligence layer would also be accessible to provide context whenever and wherever it was needed, whether sourcing via prompt in an AI chat tool or drafting an email to a prospective candidate. The path forward is unlikely to be consolidation into one uber-tool; the best solution for talent search should acknowledge and lean into the tool fragmentation, allowing recruiters and researchers to construct a best-of-breed tech stack.</p>
-		<p>But integration is just one aspect of a recruiting co-pilot. The real secret sauce of talent placement is the matchmaking between candidate and company. A level 1 query in talent placement is "who in our network is a CxO?", but the next-level questions get into territory like "who is on the cusp of CxO that would be a great fit for company Y right now?" and "how do we know they'd be able to hit the ground running?". These types of questions require not only the integration of disparate data sources, but also an interpretation engine that can mirror the intuition of a seasoned recruiter or hiring manager. When you hire a search firm to find your next exec, what you're actually paying for is access to their institutional knowledge about the talent market. When you consult with a talent partner at your investor's firm, you're tapping into their skillset for predicting people excellence. Isn't it about time this expertise was encoded somewhere?</p>
+		<p>Whether you are a boutique search firm, a PE/VC talent team, or an internal exec recruiting function, you likely have an ATS for moving candidates through your workflow and a CRM serving as a candidate database. And despite those tools claiming to be systems of record, tons of work and the majority of decisions are happening through live discussion, most of which is now recorded and accessible via AI notetakers. The conundrum is it's difficult to move off databases that have 10+ years of exhaust in them, and for many search firms and talent teams that annotated rolodex IS the most valuable asset.</p>
+		<p>An ideal system would live alongside the legacy ATS/CRM and could bridge the gap to modern workflow tools. Such an intelligence layer would also be accessible to provide context whenever and wherever it was needed, whether sourcing via prompt in an AI chat tool or drafting an email to a prospective candidate. The path forward is not consolidation into one uber-tool; the best solution for talent search should acknowledge and lean into the tool fragmentation, allowing recruiters and researchers to construct a best-of-breed tech stack.</p>
+		<p>But integration is just one aspect of a recruiting co-pilot. The real secret sauce of talent placement is the matchmaking between candidate and company. You have to answer not only <span class="accent-quote">"who in our network is a CPO?"</span> but also <span class="accent-quote">"who is on the cusp of CPO that would be a great fit for this role and why?"</span> Such questions require not only the integration of disparate data sources, but also an interpretation engine that can mirror the intuition of a seasoned recruiter or hiring manager.</p>
 		<div class="section-buttons">
 			<button class="section-button" data-section="why">← back to why</button>
 			<button class="section-button" data-section="how">on to how →</button>
@@ -701,11 +803,11 @@
 	</section>
 
 	<section id="how" class="section">
-		<canvas data-haystack="how" style="width:100%; height:100%;"></canvas>
+		<canvas data-haystack="how"></canvas>
 		<h2>how</h2>
 		<p>Think of the best talent magnet you know, either a hiring manager who wraps every req in record time or a recruiter who can close any candidate. Now imagine you hand this person a company dossier, a job spec, and a candidate profile. How efficiently and effectively do they find and place the right person? And what happens in between you handing them the search and the offer being signed?</p>
 		<p>These hiring mavens do a lot of pattern matching, jargon translating, and solid storytelling in a way that looks effortless but is actually a proficiency built from reading resumes, studying companies, and understanding humans. The good ones are worth their weight in gold, but it's a really hard skill to scale; the best anyone has done is to give them tools to automate the admin work and humans to offload the grunt work. But don't these excellent recruiters deserve a world-class AI co-pilot? And couldn't such an agent also make novice recruiters pretty good by making that expertise accessible?</p>
-		<p>The key insight here is that the convergence of LLMs, agentic AI, and MCP standards makes it possible to reason natively over proprietary, unstructured data at scale. Every artifact used in an exec search, from a company prospectus to a job description to a LinkedIn resume, can now be ingested and annotated with an additional layer of attributes that provides the dimensionality to do the type of matchmaking that the best recruiters are known for. An "eye for talent" can now be codified as an evaluation lens with contextual weighting, creating a model that adapts to each search uniquely instead of applying the same checklist to every role. You can now turn the tribal knowledge of your best recruiters and hiring managers into a shared skill that every employee in your org can leverage.</p>
+		<p>The key insight here is that the convergence of LLMs, agentic AI, and MCP standards makes it possible to reason natively over proprietary, unstructured data at scale. Every artifact used in an exec search, from a company prospectus to a job description to a LinkedIn resume, can now be ingested and annotated with an additional layer of attributes that provides the dimensionality to do the type of matchmaking that the best recruiters are known for. An <span class="accent-quote">"eye for talent"</span> can now be codified as an evaluation lens with contextual weighting, creating a model that adapts to each search uniquely instead of applying the same checklist to every role. You can now turn the tribal knowledge of your best recruiters and hiring managers into a shared skill that every employee in your org can leverage.</p>
 		<div class="section-buttons">
 			<button class="section-button" data-section="what">← back to what</button>
 			<button class="section-button" data-section="who">on to who →</button>
@@ -713,10 +815,11 @@
 	</section>
 
 	<section id="who" class="section">
-		<canvas data-haystack="who" data-core-target="#joinForm" style="width:100%; height:100%;"></canvas>
+		<canvas data-haystack="who" data-core-x="0.5" data-core-y="0.5"></canvas>
 		<h2>who</h2>
 		<p>Wherever you fit in the talent marketplace, there's an opportunity to collaborate. We are in the process of building a pilot solution and are looking for co-development partners. If you're a boutique firm that handles executive searches, we can work on unlocking the insights in your existing candidate network for faster closes and stronger placements. If you're a talent partner at an investment firm, we can help you provide warm leads and decision intelligence to your portfolio companies. If you're an in-house executive recruiting function, we can help translate your company's hiring rubric into candidate market fit.</p>
-		<p>Just click "join the build" below…</p>
+		<p>Whether it's the innate sense of a recruiter, the institutional knowledge of an agency, or the excellence prediction of an investment partner, the most valuable resources in people intelligence don't scale. Isn't it about time this expertise was encoded somewhere?</p>
+		<p>Just click <span class="accent-quote">"join the build"</span> below to come onboard as an early design partner…</p>
 		<div class="section-buttons">
 			<button class="section-button" data-section="how">← back to how</button>
 			<button class="section-button" data-section="join">join the build →</button>
@@ -724,8 +827,8 @@
 	</section>
 
 	<section id="join" class="section">
-		<canvas data-haystack="who" data-core-target="#joinForm" style="width:100%; height:100%;"></canvas>
 		<p class="join-intro">we're looking for design partners who want to co-develop</p>
+		<p class="join-intro">fill out the form below or send an email to <span class="accent-quote">build@haystack.llc</span></p>
 
 		<form id="joinForm" class="join-form" action="https://api.web3forms.com/submit" method="POST">
 			<input type="hidden" name="access_key" value="b9402449-adbf-420f-ac8f-fb81df384a4b">
@@ -829,32 +932,28 @@
 			window.history.replaceState({}, document.title, window.location.pathname);
 		}
 
+		let switching = false;
+
 		function showSection(sectionId) {
-			// Hide all sections and hero
-			document.querySelectorAll('.section').forEach(section => {
-				section.classList.remove('active');
-			});
-			document.getElementById('hero').classList.remove('active');
+			const next = document.getElementById(sectionId) || document.getElementById('hero');
+			const current = document.querySelector('.section.active, main.active');
+			if (next === current || switching) return;
 
-			// Show selected section
-			const target = document.getElementById(sectionId);
-			if (target) {
-				target.classList.add('active');
-				// Remount canvas for this section if it exists
-				const canvas = target.querySelector('canvas[data-haystack]');
-				if (canvas && window.HaystackVisuals) {
-					// Small delay to ensure section is fully rendered before mounting
-					setTimeout(() => {
-						window.HaystackVisuals.mount(canvas, canvas.dataset.haystack);
-					}, 50);
-				}
-			} else {
-				// If hero, show it instead
-				document.getElementById('hero').classList.add('active');
-			}
+			const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-			// Scroll to top
-			window.scrollTo(0, 0);
+			const swap = () => {
+				if (current) current.classList.remove('active', 'is-leaving');
+				next.classList.add('active', 'is-entering');
+				window.scrollTo(0, 0);
+				// wait two frames so the browser registers the starting state, then fade in
+				requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove('is-entering')));
+			};
+
+			if (reduce || !current) { swap(); return; }
+
+			switching = true;
+			current.classList.add('is-leaving');                  // fade the old page out
+			setTimeout(() => { swap(); switching = false; }, 200); // then swap in the new one
 		}
 
 		// Show hero by default
